@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/17 16:41:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:09:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,23 @@
 
 int	try_take_forks(t_philo *philo)
 {
-	int	l_state;
-	int	r_state;
+	int	state;
 
 	pthread_mutex_lock(philo->left_fork->mutex);
-	l_state = philo->left_fork->flag;
-	if (philo->left_fork->flag == 1)
-		philo->left_fork->flag = 0;
-	pthread_mutex_unlock(philo->left_fork->mutex);
 	pthread_mutex_lock(philo->right_fork->mutex);
-	r_state = philo->right_fork->flag;
-	if (philo->right_fork->flag == 1)
+	state = philo->left_fork->flag && philo->right_fork->flag;
+
+	if (state)
+	{
+		print_action("has taken a fork", philo);
+		print_action("has taken a fork", philo);
 		philo->right_fork->flag = 0;
+		philo->left_fork->flag = 0;
+	}
 	pthread_mutex_unlock(philo->right_fork->mutex);
-	if (l_state && r_state)
-	{
-		print_action("has taken a fork", philo);
-		print_action("has taken a fork", philo);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->left_fork->mutex);
-		philo->left_fork->flag = l_state;
-		pthread_mutex_unlock(philo->left_fork->mutex);
-		pthread_mutex_lock(philo->right_fork->mutex);
-		philo->right_fork->flag = r_state;
-		pthread_mutex_unlock(philo->right_fork->mutex);
-	}
-	return (l_state && r_state);
+	pthread_mutex_unlock(philo->left_fork->mutex);
+
+	return (state);
 }
 
 void	release_fork(t_philo *philo)
@@ -94,8 +83,10 @@ void	sleep_philo(t_philo *philo)
 	print_action("is sleeping", philo);
 	ft_usleep(philo->time.time_to_sleep, philo);
 	if (philo->state != DYING)
+	{
 		philo->state = THINKING;
-	//print_action("aaa", philo);
+		print_action("is thinking", philo);
+	}
 }
 
 void	*philo_routine(void *philo_pointer)
@@ -104,6 +95,7 @@ void	*philo_routine(void *philo_pointer)
 
 	philo = (t_philo *)philo_pointer;
 	philo->last_eat = get_millisecond();
+	philo->time.start_time = philo->last_eat;
 	print_action("is thinking", philo);
 	while (philo->state != DYING)
 	{
@@ -152,7 +144,6 @@ void	wait_and_clear_philos(t_philo *philos, int quantity)
 	while (i < quantity)
 	{
 		pthread_join(philos[i].th, (void **)&id);
-		//printf("philo end: %d\n", *id);
 		i++;
 	}
 	free(philos);
@@ -170,8 +161,8 @@ int	main(int ac, char **av)
 	table.amount_philo = 6;
 	table.each_philo_have_to_eat = 0;
 	time.time_to_eat = 3000;
-	time.time_to_sleep = 1000;
-	time.time_to_die = 5000;
+	time.time_to_sleep = 2000;
+	time.time_to_die = 5500;
 	table.time = time;
 
 	forks = init_forks(table.amount_philo);

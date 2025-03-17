@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/17 15:05:15 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:05:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ long	get_millisecond(void)
 
 void	print_action(char *action, t_philo *philo)
 {
-	printf("%ld %d %s\n", get_millisecond(), philo->id, action);
+	printf("%ld %d %s\n", get_millisecond() - philo->time.start_time, philo->id, action);
 }

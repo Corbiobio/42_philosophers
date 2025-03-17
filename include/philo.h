@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/17 15:05:15 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:02:47 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_time
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		time_to_die;
+	long		start_time;
 } t_time;
 
 typedef enum e_state
