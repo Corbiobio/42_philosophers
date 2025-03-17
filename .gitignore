@@ -1,0 +1,8 @@
+.vscode
+dep/
+obj/
+obj_san/
+philo
+philo_san
+a.out
+.NotRelink
