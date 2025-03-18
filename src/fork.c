@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:46 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/17 11:48:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:57:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	clear_forks(t_mutex *forks, int quantity)
 {
 	int	i;
 
+	quantity += 1;
 	i = 0;
 	while (i < quantity)
 	{
@@ -54,6 +55,7 @@ t_mutex	*init_forks(int quantity)
 	int		i;
 	int		error;
 
+	quantity += 1;
 	forks = malloc(sizeof(t_mutex) * quantity);
 	if (forks == NULL)
 		return (NULL);

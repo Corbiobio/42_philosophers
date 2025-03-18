@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 11:18:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:49:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_time
 typedef enum e_state
 {
 	DYING,
-	EATING,
 	SLEEPING,
 	THINKING,
 } t_state;
@@ -61,11 +60,11 @@ void	*philo_routine(void *philo_pointer);
 
 //action eat
 void	eat(t_philo *philo);
-int	try_take_forks(t_philo *philo);
+int		try_take_forks(t_philo *philo);
 
 //init_and_clear_philo
 t_philo	*init_philos(t_table table, t_mutex *forks);
-void	wait_and_clear_philos(t_philo *philos, int quantity);
+void	verif_death_or_eat_count_philos(t_philo *philos, t_table table);
 
 //forks
 t_mutex	*init_forks(int quantity);
@@ -76,6 +75,6 @@ void	clear_forks(t_mutex *forks, int quantity);
 long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
 void	check_death(t_philo *philo);
-void	ft_usleep(long time, t_philo *philo);
+void	ms_usleep_deathcheck(long time, t_philo *philo);
 
 #endif

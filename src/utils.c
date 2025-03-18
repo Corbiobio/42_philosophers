@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 11:18:30 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:52:30 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_death(t_philo *philo)
 		philo->state = DYING;
 }
 
-void	ft_usleep(long time, t_philo *philo)
+void	ms_usleep_deathcheck(long time, t_philo *philo)
 {
 	int	i;
 

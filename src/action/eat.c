@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:14:35 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 11:16:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:37:51 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	try_take_forks(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	print_action("is eating", philo);
+	philo->eat_count++;
 	philo->last_eat = get_millisecond();
-	ft_usleep(philo->time.time_to_eat, philo);
+	ms_usleep_deathcheck(philo->time.time_to_eat, philo);
 	release_forks(philo);
 }

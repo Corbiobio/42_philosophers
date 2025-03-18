@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 11:18:14 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:04:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 void	sleep_philo(t_philo *philo)
 {
 	print_action("is sleeping", philo);
-	ft_usleep(philo->time.time_to_sleep, philo);
+	ms_usleep_deathcheck(philo->time.time_to_sleep, philo);
 	if (philo->state != DYING)
 	{
 		philo->state = THINKING;
@@ -51,7 +51,7 @@ void	*philo_routine(void *philo_pointer)
 			sleep_philo(philo);
 	}
 	print_action("died", philo);
-	return (&philo->id);
+	return (NULL);
 }
 
 int	main(int ac, char **av)
@@ -62,12 +62,12 @@ int	main(int ac, char **av)
 	t_philo *philos;
 
 	//TODO parsing
-	//TODO if (table->philo_num <= 0 || table->philo_num > 200 || table->death_time < 0 || table->eat_time < 0 || table->sleep_time < 0)
-	table.amount_philo = 6;
-	table.each_philo_have_to_eat = 0;
-	time.time_to_eat = 3000;
+	//TODO if (argc < || argc > || table->philo_num <= 0 || table->philo_num > 200 || table->death_time < 0 || table->eat_time < 0 || table->sleep_time < 0)
+	table.amount_philo = 4;
+	table.each_philo_have_to_eat = -1;
+	time.time_to_eat = 2000;
 	time.time_to_sleep = 2000;
-	time.time_to_die = 6000;
+	time.time_to_die = 4100;
 	table.time = time;
 
 	forks = init_forks(table.amount_philo);
@@ -75,8 +75,13 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	philos = init_philos(table, forks);
 	if (forks == NULL)
+	{
+		clear_forks(forks, table.amount_philo);
 		return (EXIT_FAILURE);
-	wait_and_clear_philos(philos, table.amount_philo);
+	}
+	//verif_death_or_eat_count_philos(philos, table);
+	while (1);
+	free(philos);
 	clear_forks(forks, table.amount_philo);
 	(void)ac;
 	(void)av;

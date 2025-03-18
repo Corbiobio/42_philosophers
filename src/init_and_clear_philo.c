@@ -6,12 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/17 17:31:15 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:04:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 t_philo	*init_philos(t_table table, t_mutex *forks)
 {
@@ -38,21 +41,38 @@ t_philo	*init_philos(t_table table, t_mutex *forks)
 	{
 		philos[i].time.start_time = time;
 		pthread_create(&philos[i].th, NULL, &philo_routine, philos + i);
+		pthread_detach(philos[i].th);
 		i++;
 	}
 	return (philos);
 }
 
-void	wait_and_clear_philos(t_philo *philos, int quantity)
+void	verif_death_or_eat_count_philos(t_philo *philos, t_table table)
 {
 	int	i;
-	int	*id;
+	int	is_end;
+	int	total_eat;
 
-	i = 0;
-	while (i < quantity)
+	is_end = 0;
+	while (!is_end)
 	{
-		pthread_join(philos[i].th, (void **)&id);
-		i++;
+		usleep(table.time.time_to_die);
+		i = 0;
+		total_eat = 0;
+		while (i < table.amount_philo)
+		{
+			//printf("%d eat %d\n", philos[i].id, philos[i].eat_count);
+			if (philos[i].state == DYING)
+			{
+				is_end = 1;
+				break ;
+			}
+			if (philos[i].eat_count >= table.each_philo_have_to_eat)
+				total_eat += table.each_philo_have_to_eat;
+			i++;
+		}
+		//printf("%d\n", table.amount_philo * table.each_philo_have_to_eat);
+		if (table.each_philo_have_to_eat >= 1 && total_eat == table.amount_philo * table.each_philo_have_to_eat)
+			break ;
 	}
-	free(philos);
 }
