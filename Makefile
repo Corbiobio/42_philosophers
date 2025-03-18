@@ -16,7 +16,9 @@ DEPFLAGS = -MMD -MF $(DEP_FILE)
 C_FILE = \
 	philo.c\
 	utils.c\
-	fork.c
+	fork.c\
+	init_and_clear_philo.c\
+	action/eat.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), $(C_FILE))
 

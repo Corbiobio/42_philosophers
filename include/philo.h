@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/17 17:02:47 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:18:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ typedef struct s_table
 	t_time		time;
 } t_table;
 
+//philo
+void	*philo_routine(void *philo_pointer);
+
+//action eat
+void	eat(t_philo *philo);
+int	try_take_forks(t_philo *philo);
+
+//init_and_clear_philo
+t_philo	*init_philos(t_table table, t_mutex *forks);
+void	wait_and_clear_philos(t_philo *philos, int quantity);
+
 //forks
 t_mutex	*init_forks(int quantity);
 int		get_fork_index(int max_forks, int id);
@@ -64,5 +75,7 @@ void	clear_forks(t_mutex *forks, int quantity);
 //utils
 long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
+void	check_death(t_philo *philo);
+void	ft_usleep(long time, t_philo *philo);
 
 #endif
