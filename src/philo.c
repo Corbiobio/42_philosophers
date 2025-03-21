@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 18:04:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:03:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	*philo_routine(void *philo_pointer)
 			if (philo->state != DYING)
 				philo->state = SLEEPING;
 		}
+		else
+			usleep(1);
 		if (philo->state == SLEEPING)
 			sleep_philo(philo);
 	}
@@ -63,18 +65,18 @@ int	main(int ac, char **av)
 
 	//TODO parsing
 	//TODO if (argc < || argc > || table->philo_num <= 0 || table->philo_num > 200 || table->death_time < 0 || table->eat_time < 0 || table->sleep_time < 0)
-	table.amount_philo = 4;
+	table.amount_philo = 6;
 	table.each_philo_have_to_eat = -1;
-	time.time_to_eat = 2000;
-	time.time_to_sleep = 2000;
-	time.time_to_die = 4100;
+	time.time_to_eat = 100;
+	time.time_to_sleep = 100;
+	time.time_to_die = 210;
 	table.time = time;
 
 	forks = init_forks(table.amount_philo);
 	if (forks == NULL)
 		return (EXIT_FAILURE);
 	philos = init_philos(table, forks);
-	if (forks == NULL)
+	if (philos == NULL)
 	{
 		clear_forks(forks, table.amount_philo);
 		return (EXIT_FAILURE);
