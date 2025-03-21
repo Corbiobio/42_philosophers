@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 17:04:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/21 12:08:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_philo	*init_philos(t_table table, t_mutex *forks)
 {
 	int		i;
 	t_philo *philos;
-	
+	long	time;
+
 	philos = malloc(sizeof(t_philo) * table.amount_philo);
 	if (philos == NULL)
 		return (NULL);
@@ -36,11 +37,21 @@ t_philo	*init_philos(t_table table, t_mutex *forks)
 		i++;
 	}
 	i = 0;
-	long	time = get_millisecond();
+	time = get_millisecond();
 	while (i < table.amount_philo)
 	{
 		philos[i].time.start_time = time;
+		i++;
+	}
+	i = 0;
+	while (i < table.amount_philo)
+	{
 		pthread_create(&philos[i].th, NULL, &philo_routine, philos + i);
+		i++;
+	}
+	i = 0;
+	while (i < table.amount_philo)
+	{
 		pthread_detach(philos[i].th);
 		i++;
 	}
