@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/21 12:08:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:32:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-t_philo	*init_philos(t_table table, t_mutex *forks)
+t_philo	*init_philos(t_table table, t_mutex *forks, t_mutex *mut)
 {
 	int		i;
 	t_philo *philos;
@@ -32,8 +32,9 @@ t_philo	*init_philos(t_table table, t_mutex *forks)
 		philos[i].eat_count = 0;
 		philos[i].right_fork = forks + i;
 		philos[i].left_fork = forks + get_fork_index(table.amount_philo, i - 1);
-		philos[i].state = THINKING;
+		philos[i].is_dead = 0;
 		philos[i].time = table.time;
+		philos[i].someone_died = mut;
 		i++;
 	}
 	i = 0;
@@ -73,7 +74,7 @@ void	verif_death_or_eat_count_philos(t_philo *philos, t_table table)
 		while (i < table.amount_philo)
 		{
 			//printf("%d eat %d\n", philos[i].id, philos[i].eat_count);
-			if (philos[i].state == DYING)
+			if (philos[i].is_dead)
 			{
 				is_end = 1;
 				break ;

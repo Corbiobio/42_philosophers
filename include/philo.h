@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 13:49:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:32:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ typedef struct s_time
 	long		start_time;
 } t_time;
 
-typedef enum e_state
-{
-	DYING,
-	SLEEPING,
-	THINKING,
-} t_state;
-
 typedef struct s_mutex
 {
 	int				flag;
@@ -44,7 +37,8 @@ typedef struct s_philo
 	t_mutex		*right_fork;
 	int			eat_count;
 	long		last_eat;
-	t_state		state;
+	t_mutex		*someone_died;
+	int			is_dead;
 	t_time		time;
 } t_philo;
 
@@ -63,7 +57,7 @@ void	eat(t_philo *philo);
 int		try_take_forks(t_philo *philo);
 
 //init_and_clear_philo
-t_philo	*init_philos(t_table table, t_mutex *forks);
+t_philo	*init_philos(t_table table, t_mutex *forks, t_mutex *mut);
 void	verif_death_or_eat_count_philos(t_philo *philos, t_table table);
 
 //forks

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/21 13:03:42 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:32:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,18 @@ void	sleep_philo(t_philo *philo)
 {
 	print_action("is sleeping", philo);
 	ms_usleep_deathcheck(philo->time.time_to_sleep, philo);
-	if (philo->state != DYING)
-	{
-		philo->state = THINKING;
+	if (!philo->is_dead)
 		print_action("is thinking", philo);
-	}
+}
+
+int	is_someone_died(t_mutex *someone_died)
+{
+	int	someone_death;
+
+	pthread_mutex_lock(someone_died->mutex);
+	someone_death = someone_died->flag;
+	pthread_mutex_unlock(someone_died->mutex);
+	return (someone_death);
 }
 
 void	*philo_routine(void *philo_pointer)
@@ -38,21 +45,22 @@ void	*philo_routine(void *philo_pointer)
 	philo = (t_philo *)philo_pointer;
 	philo->last_eat = philo->time.start_time;
 	print_action("is thinking", philo);
-	while (philo->state != DYING)
+	while (!philo->is_dead)
 	{
-		check_death(philo);
-		if (philo->state == THINKING && try_take_forks(philo) == 1)
+		if (try_take_forks(philo) == 1)
 		{
 			eat(philo);
-			if (philo->state != DYING)
-				philo->state = SLEEPING;
+			if (!philo->is_dead)
+				sleep_philo(philo);
 		}
 		else
 			usleep(1);
-		if (philo->state == SLEEPING)
-			sleep_philo(philo);
-	}
-	print_action("died", philo);
+		check_death(philo);
+	if (is_someone_died(philo->someone_died))
+		break ;
+}
+	if (philo->is_dead)
+		print_action("died", philo);
 	return (NULL);
 }
 
@@ -72,10 +80,15 @@ int	main(int ac, char **av)
 	time.time_to_die = 210;
 	table.time = time;
 
+	pthread_mutex_t m;
+	t_mutex			mut;
+	pthread_mutex_init(&m, NULL);
+	mut.flag = 0;
+	mut.mutex = &m;
 	forks = init_forks(table.amount_philo);
 	if (forks == NULL)
 		return (EXIT_FAILURE);
-	philos = init_philos(table, forks);
+	philos = init_philos(table, forks, &mut);
 	if (philos == NULL)
 	{
 		clear_forks(forks, table.amount_philo);
@@ -83,6 +96,8 @@ int	main(int ac, char **av)
 	}
 	//verif_death_or_eat_count_philos(philos, table);
 	while (1);
+	//usleep(100000);
+	pthread_mutex_destroy(&m);
 	free(philos);
 	clear_forks(forks, table.amount_philo);
 	(void)ac;
