@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 17:52:30 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/21 12:12:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ void	check_death(t_philo *philo)
 
 void	ms_usleep_deathcheck(long time, t_philo *philo)
 {
-	int	i;
+	const long	start = get_millisecond();
 
-	i = 0;
-	while (i < time && philo->state != DYING)
+	while ((get_millisecond() - start) < time && philo->state != DYING)
 	{
-		usleep(1000);
+		usleep(100);
 		check_death(philo);
-		i++;
 	}
 }
 
