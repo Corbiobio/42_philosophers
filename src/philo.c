@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 10:25:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:21:27 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,61 +28,32 @@ void	sleep_philo(t_philo *philo)
 		print_action("is thinking", philo);
 }
 
-int	is_someone_died(t_mutex *someone_died)
-{
-	int	someone_death;
-
-	pthread_mutex_lock(someone_died->mutex);
-	someone_death = someone_died->flag;
-	pthread_mutex_unlock(someone_died->mutex);
-	return (someone_death);
-}
-
 void	*philo_routine(void *philo_pointer)
 {
 	t_philo	*philo;
 	
 	philo = (t_philo *)philo_pointer;
-
-	pthread_mutex_lock(	philo->can_print);
-	printf("%ld %d start\n", get_millisecond() - philo->time.start_time, philo->id);
-	pthread_mutex_unlock(philo->can_print);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//print_action("is start", philo);
-	//if (philo->id % 2 == 0)
-	//	usleep(philo->time.time_to_eat / 2 * 1000);
-	//while (!philo->is_dead)
-	//{
-	//	if (try_take_forks(philo) == 1)
-	//	{
-	//		eat(philo);
-	//		if (!philo->is_dead)
-	//			sleep_philo(philo);
-	//	}
-	//	else
-	//		usleep(1);
-	//	check_death(philo);
-	//if (is_someone_died(philo->someone_died))
-	//	break ;
-	//}
-	//if (philo->is_dead)
-	//	print_action("died", philo);
+	
+	print_action("start", philo);
+	philo->last_eat = philo->time.start_time;
+	if (philo->id % 2 == 0)
+		usleep(philo->time.time_to_eat / 2 * 1000);
+	while (!philo->is_dead)
+	{
+		if (try_take_forks(philo) == 1)
+		{
+			eat(philo);
+			if (!philo->is_dead)
+				sleep_philo(philo);
+		}
+		else
+		{
+			check_death(philo);
+			usleep(1);
+		}
+	}
+	if (philo->is_dead)
+		print_action("died", philo);
 	return (NULL);
 }
 
@@ -99,7 +70,7 @@ int	main(int ac, char **av)
 	table.each_philo_have_to_eat = -1;
 	table.time.time_to_eat = 200;
 	table.time.time_to_sleep = 200;
-	table.time.time_to_die = 500;
+	table.time.time_to_die = 600;
 	pthread_mutex_init(&can_print, NULL);
 	forks = init_forks(table.amount_philo);
 	if (forks == NULL)
