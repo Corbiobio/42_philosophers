@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 14:10:45 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:13:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@
 #include <string.h>
 #include <sys/time.h>
 #include <unistd.h>
-
-void	sleep_philo(t_philo *philo)
-{
-	print_action("is sleeping", philo);
-	ms_usleep_deathcheck(philo->time.time_to_sleep, philo);
-	if (philo->state == ALIVE)
-		print_action("is thinking", philo);
-}
 
 void	*philo_routine(void *philo_pointer)
 {

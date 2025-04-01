@@ -18,7 +18,8 @@ C_FILE = \
 	utils.c\
 	fork.c\
 	init_and_clear_philo.c\
-	action/eat.c
+	action/eat.c\
+	action/sleep.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), $(C_FILE))
 

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 14:09:13 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:14:28 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ typedef struct s_table
 //philo
 void	*philo_routine(void *philo_pointer);
 
-//action eat
+//action
+//eat
 void	eat(t_philo *philo);
 int		try_take_forks(t_philo *philo);
+//sleep
+void	sleep_philo(t_philo *philo);
 
 //init_and_clear_philo
 t_philo	*init_philos(t_table table, t_mutex *forks, pthread_mutex_t *can_print);
