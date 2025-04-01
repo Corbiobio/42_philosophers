@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/21 17:32:31 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:18:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ typedef struct s_mutex
 
 typedef struct s_philo
 {
-	pthread_t	th;
-	int			id;
-	t_mutex		*left_fork;
-	t_mutex		*right_fork;
-	int			eat_count;
-	long		last_eat;
-	t_mutex		*someone_died;
-	int			is_dead;
-	t_time		time;
+	pthread_t		th;
+	int				id;
+	t_mutex			*left_fork;
+	t_mutex			*right_fork;
+	t_mutex			*someone_died;
+	pthread_mutex_t	*can_print;
+	int				eat_count;
+	long			last_eat;
+	int				is_dead;
+	t_time			time;
 } t_philo;
 
 typedef struct s_table
@@ -57,8 +58,7 @@ void	eat(t_philo *philo);
 int		try_take_forks(t_philo *philo);
 
 //init_and_clear_philo
-t_philo	*init_philos(t_table table, t_mutex *forks, t_mutex *mut);
-void	verif_death_or_eat_count_philos(t_philo *philos, t_table table);
+t_philo	*init_philos(t_table table, t_mutex *forks, pthread_mutex_t *can_print);
 
 //forks
 t_mutex	*init_forks(int quantity);
