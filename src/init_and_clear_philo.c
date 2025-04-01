@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 12:19:24 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:09:25 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_philo	*init_philos(t_table table, t_mutex *forks, pthread_mutex_t *can_print)
 		philos[i].eat_count = 0;
 		philos[i].right_fork = forks + i;
 		philos[i].left_fork = forks + get_fork_index(table.amount_philo, i - 1);
-		philos[i].is_dead = 0;
+		philos[i].state = ALIVE;
 		philos[i].can_print = can_print;
 		i++;
 	}

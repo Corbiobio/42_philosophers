@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 14:02:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:09:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define PHILO_H
 
 # include <pthread.h>
+
+typedef enum e_state
+{
+	ALIVE,
+	STOP,
+	DEAD
+}	t_state;
 
 typedef struct s_time
 {
@@ -38,7 +45,7 @@ typedef struct s_philo
 	pthread_mutex_t	*can_print;
 	int				eat_count;
 	long			last_eat;
-	int				is_dead;
+	t_state			state;
 	t_time			time;
 } t_philo;
 

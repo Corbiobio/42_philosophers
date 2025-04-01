@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 12:26:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:10:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sleep_philo(t_philo *philo)
 {
 	print_action("is sleeping", philo);
 	ms_usleep_deathcheck(philo->time.time_to_sleep, philo);
-	if (!philo->is_dead)
+	if (philo->state == ALIVE)
 		print_action("is thinking", philo);
 }
 
@@ -39,12 +39,12 @@ void	*philo_routine(void *philo_pointer)
 	
 	if (philo->id % 2 == 0)
 		usleep(philo->time.time_to_eat * 500);
-	while (!philo->is_dead)
+	while (philo->state == ALIVE)
 	{
 		if (try_take_forks(philo) == 1)
 		{
 			eat(philo);
-			if (!philo->is_dead)
+			if (philo->state == ALIVE)
 				sleep_philo(philo);
 		}
 		else
@@ -53,7 +53,7 @@ void	*philo_routine(void *philo_pointer)
 			usleep(1);
 		}
 	}
-	if (philo->is_dead)
+	if (philo->state == DEAD)
 		print_action("died", philo);
 	return (NULL);
 }
