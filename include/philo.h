@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 10:41:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:02:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
 void	check_death(t_philo *philo);
 void	ms_usleep_deathcheck(long time, t_philo *philo);
+void	ms_usleep_until_time(long time);
 
 #endif

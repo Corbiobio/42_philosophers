@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 11:21:27 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 12:26:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void	*philo_routine(void *philo_pointer)
 	t_philo	*philo;
 	
 	philo = (t_philo *)philo_pointer;
-	
-	print_action("start", philo);
 	philo->last_eat = philo->time.start_time;
+	ms_usleep_until_time(philo->time.start_time);
+	print_action("start", philo);
+	
 	if (philo->id % 2 == 0)
-		usleep(philo->time.time_to_eat / 2 * 1000);
+		usleep(philo->time.time_to_eat * 500);
 	while (!philo->is_dead)
 	{
 		if (try_take_forks(philo) == 1)
