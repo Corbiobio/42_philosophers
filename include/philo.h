@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 10:18:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:41:10 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_philo
 	int				id;
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
-	t_mutex			*someone_died;
 	pthread_mutex_t	*can_print;
 	int				eat_count;
 	long			last_eat;
