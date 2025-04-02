@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 14:13:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:59:06 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 void	*philo_routine(void *philo_pointer)
 {
 	t_philo	*philo;
-	
+
 	philo = (t_philo *)philo_pointer;
 	philo->last_eat = philo->time.start_time;
 	ms_usleep_until_time(philo->time.start_time);
 	print_action("start", philo);
-	
 	if (philo->id % 2 == 0)
 		usleep(philo->time.time_to_eat * 500);
 	while (philo->state == ALIVE)
@@ -52,9 +51,9 @@ void	*philo_routine(void *philo_pointer)
 
 int	main(int ac, char **av)
 {
-	t_table	table;
-	t_mutex *forks;
-	t_philo *philos;
+	t_table			table;
+	t_mutex			*forks;
+	t_philo			*philos;
 	pthread_mutex_t	can_print;
 
 	//TODO parsing
@@ -68,16 +67,13 @@ int	main(int ac, char **av)
 	forks = init_forks(table.amount_philo);
 	if (forks == NULL)
 		return (EXIT_FAILURE);
-
 	philos = init_philos(table, forks, &can_print);
-
 	if (philos != NULL)
 	{
 		//verif_death_or_eat_count_philos
 		while (1);
 		free(philos);
 	}
-	
 	pthread_mutex_destroy(&can_print);
 	clear_forks(forks, table.amount_philo);
 	(void)ac;

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 14:14:28 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:54:27 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ typedef struct s_time
 	long		time_to_sleep;
 	long		time_to_die;
 	long		start_time;
-} t_time;
+}	t_time;
 
 typedef struct s_mutex
 {
 	int				flag;
 	pthread_mutex_t	*mutex;
-} t_mutex;
+}	t_mutex;
 
 typedef struct s_philo
 {
@@ -47,14 +47,14 @@ typedef struct s_philo
 	long			last_eat;
 	t_state			state;
 	t_time			time;
-} t_philo;
+}	t_philo;
 
 typedef struct s_table
 {
 	int			amount_philo;
 	int			each_philo_have_to_eat;
 	t_time		time;
-} t_table;
+}	t_table;
 
 //philo
 void	*philo_routine(void *philo_pointer);

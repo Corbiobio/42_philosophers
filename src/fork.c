@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:46 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 13:57:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:55:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	clear_forks(t_mutex *forks, int quantity)
 
 static t_mutex	*forks_error(int index_error, t_mutex *forks)
 {
-
 	while (index_error >= 0)
 	{
 		pthread_mutex_destroy(forks[index_error].mutex);

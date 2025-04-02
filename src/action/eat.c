@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:14:35 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/18 13:37:51 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:54:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->right_fork->mutex);
 }
 
-int	try_take_fork(t_mutex *fork)
+static int	try_take_fork(t_mutex *fork)
 {
 	int	is_available;
 
@@ -53,8 +53,8 @@ void	set_forks_to_prev_state(int left_state, int right_state, t_philo *philo)
 
 int	try_take_forks(t_philo *philo)
 {
-	const int has_take_left = try_take_fork(philo->left_fork);
-	const int has_take_right = try_take_fork(philo->right_fork);
+	const int	has_take_left = try_take_fork(philo->left_fork);
+	const int	has_take_right = try_take_fork(philo->right_fork);
 
 	if (has_take_left && has_take_right)
 	{
