@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/01 14:10:18 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:20:14 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ long	get_millisecond(void)
 
 void	print_action(char *action, t_philo *philo)
 {
-	pthread_mutex_lock(	philo->can_print);
-	printf("%ld %d %s\n", get_millisecond() - philo->time.start_time, philo->id, action);
-	pthread_mutex_unlock(philo->can_print);	
+	if (philo->state == ALIVE)
+	{
+		pthread_mutex_lock(	philo->can_print);
+		printf("%ld %d %s\n", get_millisecond() - philo->time.start_time, philo->id, action);
+		pthread_mutex_unlock(philo->can_print);	
+	}
 }
 
 void	check_death(t_philo *philo)
