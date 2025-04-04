@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:44:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:04:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_mutex	*init_mutex_arr(int philo_quantity);
 long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
 void	check_death(long curr_ms, t_philo *philo);
-void	ms_usleep_deathcheck(long time, t_philo *philo);
+void	check_stop(long curr_ms, t_philo *philo);
+void	ms_usleep_check_stop(long time, t_philo *philo);
 void	ms_usleep_until_time(long time);
 
 #endif

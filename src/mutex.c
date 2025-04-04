@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:46 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:11:33 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:11:37 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ t_mutex	*init_mutex_arr(int philo_quantity)
 		exit(EXIT_FAILURE);
 	while (i < philo_quantity)
 	{
-		arr[i].flag = 1;
+		if (i < philo_quantity / 3)
+			arr[i].flag = 1;
+		else
+			arr[i].flag = 0;
 		arr[i].mutex = malloc(sizeof(pthread_mutex_t));
 		if (arr[i].mutex == NULL)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:21:30 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:09:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,27 @@ void	check_death(long curr_ms, t_philo *philo)
 {
 	if (curr_ms - philo->last_eat > philo->time.time_to_die)
 	{
+		pthread_mutex_lock(philo->stop_mut->mutex);
+		philo->stop_mut->flag = 1;
+		pthread_mutex_unlock(philo->stop_mut->mutex);
+		pthread_mutex_lock(philo->can_print);
+		printf("%ld %d %s\n",
+			get_millisecond() - philo->time.start_time, philo->id, "died");
+		pthread_mutex_unlock(philo->can_print);
 		philo->state = DEAD;
 	}
 }
 
-void	ms_usleep_deathcheck(long ms_to_wait, t_philo *philo)
+void	check_stop(long curr_ms, t_philo *philo)
+{
+	check_death(curr_ms, philo);
+	pthread_mutex_lock(philo->stop_mut->mutex);
+	if (philo->stop_mut->flag == 1 && philo->state == ALIVE)
+		philo->state = STOP;
+	pthread_mutex_unlock(philo->stop_mut->mutex);
+}
+
+void	ms_usleep_check_stop(long ms_to_wait, t_philo *philo)
 {
 	const long	start = get_millisecond();
 	long		curr_ms = start;
@@ -52,7 +68,7 @@ void	ms_usleep_deathcheck(long ms_to_wait, t_philo *philo)
 	while (curr_ms - start < ms_to_wait && philo->state == ALIVE)
 	{
 		usleep(500);
-		check_death(curr_ms, philo);
+		check_stop(curr_ms, philo);
 		curr_ms = get_millisecond();
 	}
 }
