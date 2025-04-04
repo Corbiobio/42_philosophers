@@ -16,7 +16,7 @@ DEPFLAGS = -MMD -MF $(DEP_FILE)
 C_FILE = \
 	philo.c\
 	utils.c\
-	fork.c\
+	mutex.c\
 	init_and_clear_philo.c\
 	action/eat.c\
 	action/sleep.c

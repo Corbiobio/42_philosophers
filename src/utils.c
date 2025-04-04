@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/02 13:57:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:21:30 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,24 @@ void	print_action(char *action, t_philo *philo)
 	}
 }
 
-void	check_death(t_philo *philo)
+void	check_death(long curr_ms, t_philo *philo)
 {
-	if (get_millisecond() - philo->last_eat > philo->time.time_to_die)
+	if (curr_ms - philo->last_eat > philo->time.time_to_die)
 	{
 		philo->state = DEAD;
 	}
 }
 
-void	ms_usleep_deathcheck(long time, t_philo *philo)
+void	ms_usleep_deathcheck(long ms_to_wait, t_philo *philo)
 {
 	const long	start = get_millisecond();
+	long		curr_ms = start;
 
-	while (get_millisecond() - start < time && philo->state == ALIVE)
+	while (curr_ms - start < ms_to_wait && philo->state == ALIVE)
 	{
 		usleep(500);
-		check_death(philo);
+		check_death(curr_ms, philo);
+		curr_ms = get_millisecond();
 	}
 }
 

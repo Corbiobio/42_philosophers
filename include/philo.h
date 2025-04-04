@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/02 13:54:27 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:27:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ typedef struct s_philo
 {
 	pthread_t		th;
 	int				id;
+	long			last_eat;
+	pthread_mutex_t	*can_print;
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
-	pthread_mutex_t	*can_print;
-	int				eat_count;
-	long			last_eat;
+	t_mutex			*eat_count;
+	t_mutex			*stop_mut;
 	t_state			state;
 	t_time			time;
 }	t_philo;
@@ -62,22 +63,23 @@ void	*philo_routine(void *philo_pointer);
 //action
 //eat
 void	eat(t_philo *philo);
-int		try_take_forks(t_philo *philo);
+int		try_take_fork(t_mutex *fork);//REMOVE
+void	release_fork(t_mutex *fork);
+
 //sleep
 void	sleep_philo(t_philo *philo);
 
 //init_and_clear_philo
 t_philo	*init_philos(t_table table, t_mutex *forks, pthread_mutex_t *can_print);
 
-//forks
-t_mutex	*init_forks(int quantity);
-int		get_fork_index(int max_forks, int id);
-void	clear_forks(t_mutex *forks, int quantity);
+//mutex
+void	clear_mutex_arr(t_mutex *mutex_arr, int philo_quantity);
+t_mutex	*init_mutex_arr(int philo_quantity);
 
 //utils
 long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
-void	check_death(t_philo *philo);
+void	check_death(long curr_ms, t_philo *philo);
 void	ms_usleep_deathcheck(long time, t_philo *philo);
 void	ms_usleep_until_time(long time);
 
