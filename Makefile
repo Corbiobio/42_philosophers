@@ -17,6 +17,7 @@ C_FILE = \
 	philo.c\
 	utils.c\
 	mutex.c\
+	forks.c\
 	init_and_clear_philo.c\
 	action/eat.c\
 	action/sleep.c

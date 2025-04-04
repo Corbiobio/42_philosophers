@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:14:35 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:22:41 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:39:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,7 @@ void	print_eat(t_philo *philo)
 	}
 }
 
-void	release_fork(t_mutex *fork)
-{
-	pthread_mutex_lock(fork->mutex);
-	fork->flag = 1;
-	pthread_mutex_unlock(fork->mutex);
-}
-
-int	try_take_fork(t_mutex *fork)
-{
-	int	is_available;
-
-	pthread_mutex_lock(fork->mutex);
-	is_available = fork->flag;
-	if (is_available)
-		fork->flag = 0;
-	pthread_mutex_unlock(fork->mutex);
-	return (is_available);
-}
-
-void	eat(t_philo *philo)
+void	eat(t_philo *philo, int *f1_state, int *f2_state)
 {
 	print_eat(philo);
 	pthread_mutex_lock(philo->eat_count->mutex);
@@ -57,4 +38,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->eat_count->mutex);
 	philo->last_eat = get_millisecond();
 	ms_usleep_deathcheck(philo->time.time_to_eat, philo);
+	release_forks(philo);
+	*f1_state = 0;
+	*f2_state = 0;
 }

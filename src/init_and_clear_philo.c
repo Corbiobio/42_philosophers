@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:27:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:31:38 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ static void	error_initing_philos(t_table table, t_mutex *mutex_arr, pthread_mute
 	exit(EXIT_FAILURE);
 }
 
-static int	get_fork_index(int max_forks, int id)
-{
-	if (id < 0)
-		return (max_forks - 1);
-	else
-		return (id);
-}
 static void	init_basic_value(t_table table, t_mutex *mutex_arr, pthread_mutex_t *can_print, t_philo *philos)
 {
 	int	i;

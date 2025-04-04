@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:12:52 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:38:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ void	*philo_routine(void *philo_pointer)
 			has_take_right = try_take_fork(philo->right_fork);
 		if (has_take_left && has_take_right)
 		{
-			eat(philo);
-			release_fork(philo->left_fork);
-			release_fork(philo->right_fork);
-			has_take_left = 0;
-			has_take_right = 0;
+			eat(philo, &has_take_left, &has_take_right);
 			if (philo->state == ALIVE)
 				sleep_philo(philo);
 		}
