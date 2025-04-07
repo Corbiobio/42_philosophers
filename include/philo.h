@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:25:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:33:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	verif_death_and_eat_count(t_table table, t_philo *philos);
 //utils
 long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
-void	check_death(long curr_ms, t_philo *philo);
 void	check_stop(long curr_ms, t_philo *philo);
 void	ms_usleep_check_stop(long time, t_philo *philo);
 void	ms_usleep_until_time(long time);
