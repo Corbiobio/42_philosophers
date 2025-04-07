@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 17:01:28 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:39:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_action(char *action, t_philo *philo)
 	}
 }
 
-void	check_death(long curr_ms, t_philo *philo)
+static int	check_death(long curr_ms, t_philo *philo)
 {
 	if (curr_ms - philo->last_eat > philo->time.time_to_die)
 	{
@@ -46,16 +46,22 @@ void	check_death(long curr_ms, t_philo *philo)
 			get_millisecond() - philo->time.start_time, philo->id, "died");
 		pthread_mutex_unlock(philo->can_print);
 		philo->state = DEAD;
+		return (0);
 	}
+	return (1);
 }
 
 void	check_stop(long curr_ms, t_philo *philo)
 {
-	check_death(curr_ms, philo);
-	pthread_mutex_lock(philo->stop_mut->mutex);
-	if (philo->stop_mut->flag == 1 && philo->state == ALIVE)
-		philo->state = STOP;
-	pthread_mutex_unlock(philo->stop_mut->mutex);
+	const int	is_alive = check_death(curr_ms, philo);
+	
+	if (is_alive)
+	{
+		pthread_mutex_lock(philo->stop_mut->mutex);
+		if (philo->stop_mut->flag == 1 && philo->state == ALIVE)
+			philo->state = STOP;
+		pthread_mutex_unlock(philo->stop_mut->mutex);
+	}
 }
 
 void	ms_usleep_check_stop(long ms_to_wait, t_philo *philo)
