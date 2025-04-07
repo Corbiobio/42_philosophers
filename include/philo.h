@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 19:04:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:11:47 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ t_philo	*init_philos(t_table table, t_mutex *forks, pthread_mutex_t *can_print);
 //mutex
 void	clear_mutex_arr(t_mutex *mutex_arr, int philo_quantity);
 t_mutex	*init_mutex_arr(int philo_quantity);
+
+//verif_death_and_eat_count
+void	verif_death_and_eat_count(t_table table, t_philo *philos);
 
 //utils
 long	get_millisecond(void);

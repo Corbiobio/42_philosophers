@@ -19,6 +19,7 @@ C_FILE = \
 	mutex.c\
 	forks.c\
 	init_philos.c\
+	verif_death_and_eat_count.c\
 	action/eat.c\
 	action/sleep.c
 
