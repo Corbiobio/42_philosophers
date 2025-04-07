@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:48:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:54:19 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ void	*philo_routine(void *philo_pointer)
 {
 	t_philo	*philo;
 
-
 	philo = (t_philo *)philo_pointer;
-
 	ms_usleep_until_time(philo->time.start_time);
 	print_action("start", philo);
 	if (philo->id % 2 == 0)
@@ -64,7 +62,7 @@ void	*philo_routine(void *philo_pointer)
 
 static void	join_every_philos(t_table table, t_philo *philos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table.amount_philo)
