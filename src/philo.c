@@ -6,18 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:54:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:05:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stddef.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <string.h>
-#include <sys/time.h>
 #include <unistd.h>
 
 static void	philo_life(t_philo *philo)
@@ -72,7 +66,7 @@ static void	join_every_philos(t_table table, t_philo *philos)
 	}
 }
 
-int	main(int ac, char **av)
+ int	main(int ac, char **av)
 {
 	t_table			table;
 	t_mutex			*mutex_arr;
@@ -82,11 +76,11 @@ int	main(int ac, char **av)
 	//TODO PUT IT IN A FOLDER PHILO/
 	//TODO parsing
 	//TODO if (argc < || argc > || table->philo_num <= 0 || table->philo_num > 200 || table->death_time < 0 || table->eat_time < 0 || table->sleep_time < 0)
-	table.amount_philo = 5;
-	table.each_philo_have_to_eat = 5;
+	table.amount_philo = 200;
+	table.each_philo_have_to_eat = -1;
 	table.time.time_to_eat = 300;
 	table.time.time_to_sleep = 300;
-	table.time.time_to_die = 910;
+	table.time.time_to_die = 610;
 	mutex_arr = init_mutex_arr(table.amount_philo);
 	pthread_mutex_init(&can_print, NULL);
 	philos = init_philos(table, mutex_arr, &can_print);
