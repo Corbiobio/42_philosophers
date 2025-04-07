@@ -6,13 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:14:35 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:49:44 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:02:34 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <unistd.h>
 
 void	eat(t_philo *philo, int *f1_state, int *f2_state)
 {

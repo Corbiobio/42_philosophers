@@ -6,16 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:53:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:02:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 static void	error_initing_philos(t_table table, t_mutex *mutex_arr,
 	pthread_mutex_t *can_print)

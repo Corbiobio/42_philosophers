@@ -6,12 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:09:54 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:02:23 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 int	get_fork_index(int max_forks, int id)
 {

@@ -6,14 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:50:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:01:28 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/time.h>
 #include <unistd.h>
 
