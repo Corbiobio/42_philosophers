@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:10:36 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 13:17:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:50:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,15 @@ static int	philos_eat_enough(t_table table, t_philo *philos)
 void	verif_death_and_eat_count(t_table table, t_philo *philos)
 {
 	const int	quantity_philo = table.amount_philo;
-	int	stop;
+	int			stop;
 
 	stop = 0;
 	while (!stop)
 	{
 		if (death_of_philos(quantity_philo, philos))
 			stop = 1;
-		else if (table.each_philo_have_to_eat != -1 && philos_eat_enough(table, philos))
+		else if (table.each_philo_have_to_eat != -1
+			&& philos_eat_enough(table, philos))
 			stop = 1;
 		else
 			usleep(500);
