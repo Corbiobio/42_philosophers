@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 19:09:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:50:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	check_stop(long curr_ms, t_philo *philo)
 void	ms_usleep_check_stop(long ms_to_wait, t_philo *philo)
 {
 	const long	start = get_millisecond();
-	long		curr_ms = start;
+	long		curr_ms;
 
+	curr_ms = start;
 	while (curr_ms - start < ms_to_wait && philo->state == ALIVE)
 	{
 		usleep(500);
