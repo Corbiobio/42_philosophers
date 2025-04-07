@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 19:29:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:53:22 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	error_initing_philos(t_table table, t_mutex *mutex_arr, pthread_mutex_t *can_print)
+static void	error_initing_philos(t_table table, t_mutex *mutex_arr,
+	pthread_mutex_t *can_print)
 {
 	clear_mutex_arr(mutex_arr, table.amount_philo);
 	pthread_mutex_destroy(can_print);
 	exit(EXIT_FAILURE);
 }
 
-static void	init_basic_value(t_table table, t_mutex *mutex_arr, pthread_mutex_t *can_print, t_philo *philos)
+static void	init_basic_value(t_table table, t_mutex *mutex_arr,
+	pthread_mutex_t *can_print, t_philo *philos)
 {
 	int	i;
 
@@ -33,16 +35,19 @@ static void	init_basic_value(t_table table, t_mutex *mutex_arr, pthread_mutex_t 
 	{
 		philos[i].id = i + 1;
 		philos[i].right_fork = mutex_arr + i;
-		philos[i].left_fork = mutex_arr + get_fork_index(table.amount_philo, i - 1);
+		philos[i].left_fork = mutex_arr
+			+ get_fork_index(table.amount_philo, i - 1);
 		philos[i].eat_count = mutex_arr + i + table.amount_philo;
-		philos[i].stop_mut = mutex_arr + i + table.amount_philo + table.amount_philo;
+		philos[i].stop_mut = mutex_arr + i + table.amount_philo
+			+ table.amount_philo;
 		philos[i].state = ALIVE;
 		philos[i].can_print = can_print;
 		i++;
 	}
 }
 
-t_philo	*init_philos(t_table table, t_mutex *mutex_arr, pthread_mutex_t *can_print)
+t_philo	*init_philos(t_table table, t_mutex *mutex_arr,
+	pthread_mutex_t *can_print)
 {
 	int		i;
 	t_philo	*philos;
