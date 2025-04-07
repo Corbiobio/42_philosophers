@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 13:11:47 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:25:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	sleep_philo(t_philo *philo);
 //forks
 int		get_fork_index(int max_forks, int id);
 void	release_forks(t_philo *philo);
-int		try_take_fork(t_mutex *fork);
+int		try_take_fork(t_mutex *fork, t_philo *philo);
 
 //init_philos
 t_philo	*init_philos(t_table table, t_mutex *forks, pthread_mutex_t *can_print);

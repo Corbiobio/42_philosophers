@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 13:18:52 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:38:12 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	*philo_routine(void *philo_pointer)
 	while (philo->state == ALIVE)
 	{
 		if (!has_take_left)
-			has_take_left = try_take_fork(philo->left_fork);
+			has_take_left = try_take_fork(philo->left_fork, philo);
 		if (!has_take_right)
-			has_take_right = try_take_fork(philo->right_fork);
+			has_take_right = try_take_fork(philo->right_fork, philo);
 		if (has_take_left && has_take_right)
 		{
 			eat(philo, &has_take_left, &has_take_right);
@@ -72,7 +72,6 @@ int	main(int ac, char **av)
 	mutex_arr = init_mutex_arr(table.amount_philo);
 	pthread_mutex_init(&can_print, NULL);
 	philos = init_philos(table, mutex_arr, &can_print);
-	//verif death and eat count
 	verif_death_and_eat_count(table, philos);
 	int i = 0;
 	while (i < table.amount_philo)

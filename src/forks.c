@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 18:36:28 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:09:54 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->right_fork->mutex);
 }
 
-int	try_take_fork(t_mutex *fork)
+int	try_take_fork(t_mutex *fork, t_philo *philo)
 {
 	int	is_available;
 
@@ -40,5 +40,7 @@ int	try_take_fork(t_mutex *fork)
 	if (is_available)
 		fork->flag = 0;
 	pthread_mutex_unlock(fork->mutex);
+	if (is_available)
+		print_action("has taken a fork", philo);
 	return (is_available);
 }
