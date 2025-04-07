@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 16:38:12 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:48:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,13 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-void	*philo_routine(void *philo_pointer)
+static void	philo_life(t_philo *philo)
 {
-	t_philo	*philo;
 	int		has_take_left;
 	int		has_take_right;
 
-	philo = (t_philo *)philo_pointer;
 	has_take_left = 0;
 	has_take_right = 0;
-	ms_usleep_until_time(philo->time.start_time);
-	print_action("start", philo);
-	if (philo->id % 2 == 0)
-		usleep(philo->time.time_to_eat * 500);
 	while (philo->state == ALIVE)
 	{
 		if (!has_take_left)
@@ -51,7 +45,33 @@ void	*philo_routine(void *philo_pointer)
 			usleep(100);
 		}
 	}
+}
+
+void	*philo_routine(void *philo_pointer)
+{
+	t_philo	*philo;
+
+
+	philo = (t_philo *)philo_pointer;
+
+	ms_usleep_until_time(philo->time.start_time);
+	print_action("start", philo);
+	if (philo->id % 2 == 0)
+		usleep(philo->time.time_to_eat * 500);
+	philo_life(philo);
 	return (NULL);
+}
+
+static void	join_every_philos(t_table table, t_philo *philos)
+{
+	int i;
+
+	i = 0;
+	while (i < table.amount_philo)
+	{
+		pthread_join(philos[i].th, NULL);
+		i++;
+	}
 }
 
 int	main(int ac, char **av)
@@ -73,12 +93,7 @@ int	main(int ac, char **av)
 	pthread_mutex_init(&can_print, NULL);
 	philos = init_philos(table, mutex_arr, &can_print);
 	verif_death_and_eat_count(table, philos);
-	int i = 0;
-	while (i < table.amount_philo)
-	{
-		pthread_join(philos[i].th, NULL);
-		i++;
-	}
+	join_every_philos(table, philos);
 	free(philos);
 	pthread_mutex_destroy(&can_print);
 	clear_mutex_arr(mutex_arr, table.amount_philo);
