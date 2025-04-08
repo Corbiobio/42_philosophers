@@ -14,6 +14,7 @@ DEP_FILE = $(DEP_DIR)$*.d
 DEPFLAGS = -MMD -MF $(DEP_FILE)
 
 C_FILE = \
+	main.c\
 	philo.c\
 	utils.c\
 	mutex.c\
