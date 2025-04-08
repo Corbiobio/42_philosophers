@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 11:31:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:58:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*philo_routine(void *philo_pointer)
 
 	philo = (t_philo *)philo_pointer;
 	ms_usleep_until_time(philo->time.start_time);
-	print_action("start", philo);
+	print_action("is thinking", philo);
 	if (philo->id % 2 == 0)
 		usleep(philo->time.time_to_eat * 500);
 	philo_life(philo);
