@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 11:25:33 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:04:15 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,25 @@ long	get_millisecond(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-static int	check_death(long curr_ms, t_philo *philo)
+static void	check_death(long curr_ms, t_philo *philo)
 {
-	if (philo->state == ALIVE && curr_ms - philo->last_eat > philo->time.time_to_die)
+	if (curr_ms - philo->last_eat > philo->time.time_to_die)
 	{
 		pthread_mutex_lock(philo->stop_mut->mutex);
 		philo->stop_mut->flag = 1;
 		pthread_mutex_unlock(philo->stop_mut->mutex);
-		pthread_mutex_lock(philo->can_print);
-		printf("%ld %d %s\n",
-			get_millisecond() - philo->time.start_time, philo->id, "died\n\n");
-		pthread_mutex_unlock(philo->can_print);
 		philo->state = DEAD;
-		return (0);
 	}
-	return (1);
 }
 
 void	check_stop(long curr_ms, t_philo *philo)
 {
-	const int	is_alive = check_death(curr_ms, philo);
-	
-	if (is_alive)
+	if (philo->state == ALIVE)
+		check_death(curr_ms, philo);
+	if (philo->state == ALIVE)
 	{
 		pthread_mutex_lock(philo->stop_mut->mutex);
-		if (philo->stop_mut->flag == 1 && philo->state == ALIVE)
+		if (philo->stop_mut->flag == 1)
 			philo->state = STOP;
 		pthread_mutex_unlock(philo->stop_mut->mutex);
 	}
