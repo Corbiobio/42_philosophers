@@ -15,11 +15,11 @@ DEPFLAGS = -MMD -MF $(DEP_FILE)
 
 C_FILE = \
 	main.c\
-	philo.c\
 	utils.c\
 	mutex.c\
 	init_philos.c\
 	verif_death_and_eat_count.c\
+	philo_action/philo_routine.c\
 	philo_action/forks.c\
 	philo_action/eat.c\
 	philo_action/sleep.c
