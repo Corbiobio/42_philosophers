@@ -20,8 +20,8 @@ C_FILE = \
 	forks.c\
 	init_philos.c\
 	verif_death_and_eat_count.c\
-	action/eat.c\
-	action/sleep.c
+	philo_action/eat.c\
+	philo_action/sleep.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), $(C_FILE))
 
