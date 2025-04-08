@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 18:05:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:31:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	philo_life(t_philo *philo)
 		else
 		{
 			check_stop(get_millisecond(), philo);
-			usleep(100);
+			usleep(500);
 		}
 	}
 }
