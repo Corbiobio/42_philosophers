@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:06:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 18:07:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:33:24 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static void	join_every_philos(t_table table, t_philo *philos)
 {
@@ -25,6 +26,31 @@ static void	join_every_philos(t_table table, t_philo *philos)
 	}
 }
 
+static void	parsing(int ac, char **av, t_table *table)
+{
+	int	error;
+
+	if (ac < 5 || ac > 6)
+	{
+		printf("Invalid number of arguments\n");
+		exit(EXIT_FAILURE);
+	}
+	error = ft_atol_protected(av[1], &table->amount_philo);
+	error += ft_atol_protected(av[2], &table->time.time_to_die);
+	error += ft_atol_protected(av[3], &table->time.time_to_eat);
+	error += ft_atol_protected(av[4], &table->time.time_to_sleep);
+	if (ac == 6)
+		error += ft_atol_protected(av[5], &table->each_philo_have_to_eat);
+	if (ac == 5 || table->each_philo_have_to_eat < 1)
+		table->each_philo_have_to_eat = -1;
+	if (error != ac - 1 || table->amount_philo < 1 || table->time.time_to_die
+		< 0 || table->time.time_to_eat < 0 || table->time.time_to_sleep < 0)
+	{
+		printf("Invalid arguments\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_table			table;
@@ -32,14 +58,7 @@ int	main(int ac, char **av)
 	t_philo			*philos;
 	pthread_mutex_t	can_print;
 
-	//TODO PUT IT IN A FOLDER PHILO/
-	//TODO parsing
-	//TODO if (argc < || argc > || table->philo_num <= 0 || table->philo_num > 200 || table->death_time < 0 || table->eat_time < 0 || table->sleep_time < 0)
-	table.amount_philo = 200;
-	table.each_philo_have_to_eat = -1;
-	table.time.time_to_eat = 300;
-	table.time.time_to_sleep = 300;
-	table.time.time_to_die = 610;
+	parsing(ac, av, &table);
 	mutex_arr = init_mutex_arr(table.amount_philo);
 	pthread_mutex_init(&can_print, NULL);
 	philos = init_philos(table, mutex_arr, &can_print);
