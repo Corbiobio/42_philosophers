@@ -19,6 +19,7 @@ C_FILE = \
 	mutex.c\
 	init_philos.c\
 	verif_death_and_eat_count.c\
+	ft_atol_protected.c\
 	philo_action/philo_routine.c\
 	philo_action/forks.c\
 	philo_action/eat.c\

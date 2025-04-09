@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 17:33:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:00:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ t_mutex	*init_mutex_arr(int philo_quantity);
 
 //verif_death_and_eat_count
 void	verif_death_and_eat_count(t_table table, t_philo *philos);
+
+//ft_atol_protected
+long	ft_atol_protected(const char *str, long *long_pt);
 
 //utils
 long	get_millisecond(void);
