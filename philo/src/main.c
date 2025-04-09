@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:06:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 16:27:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:21:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	parsing(int ac, char **av, t_table *table)
 	error += ft_atol_protected(av[2], &table->time.time_to_die);
 	error += ft_atol_protected(av[3], &table->time.time_to_eat);
 	error += ft_atol_protected(av[4], &table->time.time_to_sleep);
+	table->each_philo_have_to_eat = -1;
 	if (ac == 6)
 		error += ft_atol_protected(av[5], &table->each_philo_have_to_eat);
-	if (ac == 5 || table->each_philo_have_to_eat < 1)
-		table->each_philo_have_to_eat = -1;
 	if (error != ac - 1 || table->amount_philo < 1 || table->time.time_to_die
-		< 0 || table->time.time_to_eat < 0 || table->time.time_to_sleep < 0)
+		< 0 || table->time.time_to_eat < 0 || table->time.time_to_sleep < 0
+		|| (ac == 6 && table->each_philo_have_to_eat < 1))
 	{
 		printf("Invalid arguments\n");
 		exit(EXIT_FAILURE);
@@ -54,7 +54,5 @@ int	main(int ac, char **av)
 	free(philos);
 	pthread_mutex_destroy(&can_print);
 	clear_mutex_arr(mutex_arr, table.amount_philo);
-	(void)ac;
-	(void)av;
 	return (0);
 }
