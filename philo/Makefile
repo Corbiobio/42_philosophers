@@ -62,13 +62,13 @@ re:
 run:
 	clear
 	$(MAKE)
-	./$(NAME)
+	./$(NAME) 200 610 300 300
 
 val:
-	$(MAKE)
+	$(MAKE) 200 610 300 300
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 san:
 	$(MAKE) NAME=$(NAME)_san OBJ_DIR=$(OBJSAN_DIR) CFLAGS="$(CFLAGS) -fsanitize=thread"
-	TSAN_OPTIONS="second_deadlock_stack=1" ./$(NAME)_san
+	TSAN_OPTIONS="second_deadlock_stack=1" ./$(NAME)_san 200 610 300 300
 -include $(DEPS)
