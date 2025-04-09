@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:46 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/04 19:11:37 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:19:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	clear_mutex_arr(t_mutex *mutex_arr, int philo_quantity)
 {
 	int	i;
 
+	philo_quantity *= 3;
 	i = 0;
 	while (i < philo_quantity)
 	{
