@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:10:36 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 15:43:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:44:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,41 @@ static void	stop_every_philos(int quantity_philo, t_philo *philos)
 		pthread_mutex_unlock(philos[i].stop_mut->mutex);
 		i++;
 	}
-}
-
-int	death_of_philos(int quantity_philo, t_philo *philos)
-{
-	int	i;
-	int	is_dead;
-
 	i = 0;
-	is_dead = 0;
 	while (i < quantity_philo)
 	{
-		pthread_mutex_lock(philos[i].stop_mut->mutex);
-		is_dead = philos[i].stop_mut->flag;
-		pthread_mutex_unlock(philos[i].stop_mut->mutex);
-		if (is_dead)
+		pthread_join(philos[i].th, NULL);
+		i++;	
+	}
+}
+
+static int	get_stop_mut_value(t_philo *philo)
+{
+	int	flag;
+
+	pthread_mutex_lock(philo->stop_mut->mutex);
+	flag = philo->stop_mut->flag;
+	pthread_mutex_unlock(philo->stop_mut->mutex);
+	return (flag);
+}
+
+static int	death_of_philos(int quantity_philo, t_philo *philos)
+{
+	const pthread_mutex_t	*can_print = philos[0].can_print;
+	const long				start_time = philos[0].time.start_time;
+	int	i;
+	int	death_id;
+
+	i = 0;
+	while (i < quantity_philo)
+	{
+		if (get_stop_mut_value(philos + i) == 1)
 		{
+			death_id = philos[i].id;
 			stop_every_philos(quantity_philo, philos);
-			pthread_mutex_lock(philos[i].can_print);
-			printf("%ld %d died\n",
-				get_millisecond() - philos[i].time.start_time, philos[i].id);
-			pthread_mutex_unlock(philos[i].can_print);
+			pthread_mutex_lock((pthread_mutex_t *)can_print);
+			printf("%ld %d died\n", get_millisecond() - start_time, death_id);
+			pthread_mutex_unlock((pthread_mutex_t *)can_print);
 			return (1);
 		}
 		i++;

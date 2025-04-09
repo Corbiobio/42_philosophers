@@ -6,25 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:06:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 13:33:24 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:27:19 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 #include <stdio.h>
-
-static void	join_every_philos(t_table table, t_philo *philos)
-{
-	int	i;
-
-	i = 0;
-	while (i < table.amount_philo)
-	{
-		pthread_join(philos[i].th, NULL);
-		i++;
-	}
-}
 
 static void	parsing(int ac, char **av, t_table *table)
 {
@@ -63,7 +51,6 @@ int	main(int ac, char **av)
 	pthread_mutex_init(&can_print, NULL);
 	philos = init_philos(table, mutex_arr, &can_print);
 	verif_death_and_eat_count(table, philos);
-	join_every_philos(table, philos);
 	free(philos);
 	pthread_mutex_destroy(&can_print);
 	clear_mutex_arr(mutex_arr, table.amount_philo);
