@@ -34,6 +34,8 @@ DEPS = $(C_FILE:%.c=$(DEP_DIR)%.d)
 
 INC = -I $(INCLUDE_DIR)
 
+ARG = 200 610 300 300
+
 all:
 	$(MAKE) $(NAME)
 
@@ -49,7 +51,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 	$(CC) $(CFLAGS) $(DEPFLAGS) $(INC) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR) $(OBJSAN_DIR)
+	rm -rf $(OBJ_DIR) $(OBJSAN_DIR) $(DEP_DIR)
 
 fclean:
 	$(MAKE) clean
@@ -62,13 +64,13 @@ re:
 run:
 	clear
 	$(MAKE)
-	./$(NAME) 200 610 300 300
+	./$(NAME) $(ARG)
 
 val:
-	$(MAKE) 200 610 300 300
+	$(MAKE) $(ARG)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 san:
 	$(MAKE) NAME=$(NAME)_san OBJ_DIR=$(OBJSAN_DIR) CFLAGS="$(CFLAGS) -fsanitize=thread"
-	TSAN_OPTIONS="second_deadlock_stack=1" ./$(NAME)_san 200 610 300 300
+	TSAN_OPTIONS="second_deadlock_stack=1" ./$(NAME)_san $(ARG)
 -include $(DEPS)
