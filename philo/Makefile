@@ -67,8 +67,8 @@ run:
 	./$(NAME) $(ARG)
 
 val:
-	$(MAKE) $(ARG)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+	$(MAKE)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(ARG)
 
 san:
 	$(MAKE) NAME=$(NAME)_san OBJ_DIR=$(OBJSAN_DIR) CFLAGS="$(CFLAGS) -fsanitize=thread"
