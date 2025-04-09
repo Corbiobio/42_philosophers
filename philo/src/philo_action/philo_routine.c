@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 18:06:54 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:34:59 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	*philo_routine(void *philo_pointer)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
-	ms_usleep_until_time(philo->time.start_time);
+	while (get_millisecond() < philo->time.start_time)
+		usleep(500);
 	print_action("is thinking", philo);
 	if (philo->id % 2 == 0)
 		usleep(philo->time.time_to_eat * 500);

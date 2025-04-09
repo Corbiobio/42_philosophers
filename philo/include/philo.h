@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 19:00:20 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:34:25 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int			amount_philo;
-	int			each_philo_have_to_eat;
+	long		amount_philo;
+	long		each_philo_have_to_eat;
 	t_time		time;
 }	t_table;
 
@@ -88,6 +88,5 @@ long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
 void	check_stop(long curr_ms, t_philo *philo);
 void	ms_usleep_check_stop(long time, t_philo *philo);
-void	ms_usleep_until_time(long time);
 
 #endif

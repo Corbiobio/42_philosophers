@@ -6,11 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 12:04:15 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:15:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 #include <stdio.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -71,10 +72,4 @@ void	ms_usleep_check_stop(long ms_to_wait, t_philo *philo)
 		check_stop(curr_ms, philo);
 		curr_ms = get_millisecond();
 	}
-}
-
-void	ms_usleep_until_time(long time)
-{
-	while (get_millisecond() < time)
-		usleep(500);
 }
