@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:10:36 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/08 11:21:13 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:43:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+#include <stdio.h>
 #include <unistd.h>
 
 static void	stop_every_philos(int quantity_philo, t_philo *philos)
@@ -43,6 +44,10 @@ int	death_of_philos(int quantity_philo, t_philo *philos)
 		if (is_dead)
 		{
 			stop_every_philos(quantity_philo, philos);
+			pthread_mutex_lock(philos[i].can_print);
+			printf("%ld %d died\n",
+				get_millisecond() - philos[i].time.start_time, philos[i].id);
+			pthread_mutex_unlock(philos[i].can_print);
 			return (1);
 		}
 		i++;
