@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:10:36 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 16:44:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:22:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	stop_every_philos(int quantity_philo, t_philo *philos)
 	while (i < quantity_philo)
 	{
 		pthread_join(philos[i].th, NULL);
-		i++;	
+		i++;
 	}
 }
 
@@ -49,8 +49,8 @@ static int	death_of_philos(int quantity_philo, t_philo *philos)
 {
 	const pthread_mutex_t	*can_print = philos[0].can_print;
 	const long				start_time = philos[0].time.start_time;
-	int	i;
-	int	death_id;
+	int						i;
+	int						death_id;
 
 	i = 0;
 	while (i < quantity_philo)
@@ -82,22 +82,22 @@ static int	philos_eat_enough(t_table table, t_philo *philos)
 		if (philos[i].eat_count->flag < table.each_philo_have_to_eat)
 		{
 			pthread_mutex_unlock(philos[i].eat_count->mutex);
-			stop_every_philos(table.amount_philo, philos);
 			break ;
 		}
 		pthread_mutex_unlock(philos[i].eat_count->mutex);
 		i++;
 	}
-	return (i == table.amount_philo);
+	if (i != table.amount_philo)
+		return (0);
+	stop_every_philos(table.amount_philo, philos);
+	return (1);
 }
 
 void	verif_death_and_eat_count(t_table table, t_philo *philos)
 {
-	const int	quantity_philo = table.amount_philo;
-
 	while (1)
 	{
-		if (death_of_philos(quantity_philo, philos))
+		if (death_of_philos(table.amount_philo, philos))
 			break ;
 		if (table.each_philo_have_to_eat != -1
 			&& philos_eat_enough(table, philos))
