@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:46 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 18:19:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/15 09:29:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_mutex	*error_initing_arr(int index_error, t_mutex *arr)
 		i++;
 	}
 	free(arr);
-	exit(EXIT_FAILURE);
+	return (NULL);
 }
 
 t_mutex	*init_mutex_arr(int philo_quantity)
@@ -52,7 +52,7 @@ t_mutex	*init_mutex_arr(int philo_quantity)
 	i = 0;
 	arr = malloc(sizeof(t_mutex) * philo_quantity);
 	if (arr == NULL)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	while (i < philo_quantity)
 	{
 		if (i < philo_quantity / 3)
@@ -67,6 +67,6 @@ t_mutex	*init_mutex_arr(int philo_quantity)
 		i++;
 	}
 	if (i < philo_quantity)
-		error_initing_arr(i, arr);
+		return (error_initing_arr(i, arr));
 	return (arr);
 }

@@ -6,19 +6,19 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 17:02:17 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/04/15 09:32:12 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 
-static void	error_initing_philos(t_table table, t_mutex *mutex_arr,
+static t_philo	*error_initing_philos(t_table table, t_mutex *mutex_arr,
 	pthread_mutex_t *can_print)
 {
 	clear_mutex_arr(mutex_arr, table.amount_philo);
 	pthread_mutex_destroy(can_print);
-	exit(EXIT_FAILURE);
+	return (NULL);
 }
 
 static void	init_basic_value(t_table table, t_mutex *mutex_arr,
@@ -50,7 +50,7 @@ t_philo	*init_philos(t_table table, t_mutex *mutex_arr,
 
 	philos = malloc(sizeof(t_philo) * table.amount_philo);
 	if (philos == NULL)
-		error_initing_philos(table, mutex_arr, can_print);
+		return (error_initing_philos(table, mutex_arr, can_print));
 	init_basic_value(table, mutex_arr, can_print, philos);
 	i = 0;
 	table.time.start_time = get_millisecond() + 100;
