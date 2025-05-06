@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/06 11:51:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 12:14:19 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	*philo_routine(void *philo_pointer)
 	while (get_millisecond() < philo->time.start_time)
 		usleep(500);
 	print_action("is thinking", philo);
-	if (philo->id % 2 == 0 && philo->time.time_to_eat < philo->time.time_to_die)
-		ms_usleep_check_stop(philo->time.time_to_eat * 500, philo);
+	if (philo->id % 2 == 0)
+		ms_usleep_check_stop(philo->time.time_to_eat / 2, philo);
 	philo_life(philo);
 	return (NULL);
 }
