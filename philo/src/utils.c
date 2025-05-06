@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:58:49 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 14:15:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:09:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long	get_millisecond(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-static void	check_death(long curr_ms, t_philo *philo)
+void	check_death(long curr_ms, t_philo *philo)
 {
 	if (curr_ms - philo->last_eat > philo->time.time_to_die)
 	{
@@ -33,13 +33,7 @@ static void	check_death(long curr_ms, t_philo *philo)
 		pthread_mutex_unlock(philo->stop_mut->mutex);
 		philo->state = DEAD;
 	}
-}
-
-void	check_stop(long curr_ms, t_philo *philo)
-{
-	if (philo->state == ALIVE)
-		check_death(curr_ms, philo);
-	if (philo->state == ALIVE)
+	else
 	{
 		pthread_mutex_lock(philo->stop_mut->mutex);
 		if (philo->stop_mut->flag == 1)
@@ -50,7 +44,7 @@ void	check_stop(long curr_ms, t_philo *philo)
 
 void	print_action(char *action, t_philo *philo)
 {
-	check_stop(get_millisecond(), philo);
+	check_death(get_millisecond(), philo);
 	if (philo->state == ALIVE)
 	{
 		pthread_mutex_lock(philo->can_print);
@@ -69,7 +63,7 @@ void	ms_usleep_check_stop(long ms_to_wait, t_philo *philo)
 	while (curr_ms - start < ms_to_wait && philo->state == ALIVE)
 	{
 		usleep(500);
-		check_stop(curr_ms, philo);
+		check_death(curr_ms, philo);
 		curr_ms = get_millisecond();
 	}
 }
