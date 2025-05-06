@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/06 11:25:27 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:54:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static t_philo	*error_initing_philos(t_table table, t_mutex *mutex_arr,
 	pthread_mutex_t *can_print)
@@ -36,9 +37,10 @@ static void	init_basic_value(t_table table, t_mutex *mutex_arr,
 		else
 			philos[i].left_fork = mutex_arr + (i - 1);
 		philos[i].eat_count = mutex_arr + i + table.amount_philo;
+		philos[i].eat_count->flag = 0;
 		philos[i].stop_mut = mutex_arr + i + table.amount_philo
 			+ table.amount_philo;
-		philos[i].state = ALIVE;
+		philos[i].state = DEAD;
 		philos[i].can_print = can_print;
 		i++;
 	}
@@ -60,9 +62,10 @@ t_philo	*init_philos(t_table table, t_mutex *mutex_arr,
 	{
 		philos[i].time = table.time;
 		philos[i].last_eat = table.time.start_time;
-		//VERIF IF ONE FAIL
 		pthread_create(&philos[i].th, NULL, &philo_routine, philos + i);
 		i++;
 	}
+	while (get_millisecond() < table.time.start_time)
+		usleep(500);
 	return (philos);
 }

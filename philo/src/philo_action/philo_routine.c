@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:56:50 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/06 11:26:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:51:46 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	*philo_routine(void *philo_pointer)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
-	//pthread_mutex_lock(philo->stop_mut->mutex);
-	//philo->stop_mut->flag = 0;
-	//philo->state = ALIVE;
-	//pthread_mutex_unlock(philo->stop_mut->mutex);
+	pthread_mutex_lock(philo->stop_mut->mutex);
+	philo->stop_mut->flag = 0;
+	philo->state = ALIVE;
+	pthread_mutex_unlock(philo->stop_mut->mutex);
 	while (get_millisecond() < philo->time.start_time)
 		usleep(500);
 	print_action("is thinking", philo);
 	if (philo->id % 2 == 0 && philo->time.time_to_eat < philo->time.time_to_die)
-		usleep(philo->time.time_to_eat * 500);
+		ms_usleep_check_stop(philo->time.time_to_eat * 500, philo);
 	philo_life(philo);
 	return (NULL);
 }
