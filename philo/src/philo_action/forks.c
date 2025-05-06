@@ -6,19 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/07 17:02:23 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:14:29 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	get_fork_index(int max_forks, int id)
-{
-	if (id < 0)
-		return (max_forks - 1);
-	else
-		return (id);
-}
 
 void	release_forks(t_philo *philo)
 {

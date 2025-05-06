@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:30:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/15 09:32:12 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:25:27 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ static void	init_basic_value(t_table table, t_mutex *mutex_arr,
 	{
 		philos[i].id = i + 1;
 		philos[i].right_fork = mutex_arr + i;
-		philos[i].left_fork = mutex_arr
-			+ get_fork_index(table.amount_philo, i - 1);
+		if (i - 1 < 0)
+			philos[i].left_fork = mutex_arr + (table.amount_philo - 1);
+		else
+			philos[i].left_fork = mutex_arr + (i - 1);
 		philos[i].eat_count = mutex_arr + i + table.amount_philo;
 		philos[i].stop_mut = mutex_arr + i + table.amount_philo
 			+ table.amount_philo;
@@ -58,6 +60,7 @@ t_philo	*init_philos(t_table table, t_mutex *mutex_arr,
 	{
 		philos[i].time = table.time;
 		philos[i].last_eat = table.time.start_time;
+		//VERIF IF ONE FAIL
 		pthread_create(&philos[i].th, NULL, &philo_routine, philos + i);
 		i++;
 	}

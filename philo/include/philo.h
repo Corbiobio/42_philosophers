@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:57:07 by edarnand          #+#    #+#             */
-/*   Updated: 2025/04/09 13:34:25 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:14:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	eat(t_philo *philo, int *f1_state, int *f2_state);
 void	sleep_philo(t_philo *philo);
 
 //forks
-int		get_fork_index(int max_forks, int id);
 void	release_forks(t_philo *philo);
 int		try_take_fork(t_mutex *fork, t_philo *philo);
 
@@ -86,7 +85,7 @@ long	ft_atol_protected(const char *str, long *long_pt);
 //utils
 long	get_millisecond(void);
 void	print_action(char *action, t_philo *philo);
-void	check_stop(long curr_ms, t_philo *philo);
+void	check_death(long curr_ms, t_philo *philo);
 void	ms_usleep_check_stop(long time, t_philo *philo);
 
 #endif
